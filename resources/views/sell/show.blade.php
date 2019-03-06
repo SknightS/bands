@@ -109,10 +109,12 @@
                         <thead>
                         <tr>
                             <th>Client Name</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Address</th>
-                            <th>Company</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Quantity Type</th>
+                            <th>TotalAmount</th>
+                            <th>Date</th>
+                            <th>Deposite Money</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -148,27 +150,30 @@
                 stateSave: true,
                 type:"POST",
                 "ajax":{
-                    "url": "{!! route('client.getdata') !!}",
+                    "url": "{!! route('sell.getdata') !!}",
                     "type": "POST",
                     "data":{ _token: "{{csrf_token()}}"},
                 },
                 columns: [
                     { data: 'clientName', name: 'client.clientName' },
-                    { data: 'email', name: 'client.email'},
-                    { data: 'phone', name: 'client.phone'},
-                    { data: 'address', name: 'client.address'},
-                    { data: 'company', name: 'client.company'},
+                    { data: 'productName', name: 'product.productName'},
+                    { data: 'quantity', name: 'sales.quantity'},
+                    { data: 'quantityType', name: 'sales.quantityType'},
+                    { data: 'totalAmount', name: 'sales.totalAmount'},
+                    { data: 'date', name: 'sales.date'},
+                    { data: 'depositeMoney', name: 'sales.depositeMoney'},
                     { "data": function(data){
 
-                            return '<a class="btn btn-default btn-sm"  data-panel-id="'+data.clientId+'" onclick="editClient(this)"><i class="fa fa-edit"></i></a>'
+                            return '<a class="btn btn-default btn-sm"  data-panel-id="'+data.salesId+'" onclick="editSales(this)"><i class="fa fa-edit"></i></a>'
                                 ;},
+
                         "orderable": false, "searchable":false, "name":"selected_rows" },
                 ]
             });
         } );
 
 
-        function editClient(x) {
+        function editSales(x) {
             var id=$(x).data('panel-id');
 
             $.ajax({
@@ -230,6 +235,7 @@
                 }
             });
         }
+
     </script>
 
 @endsection
